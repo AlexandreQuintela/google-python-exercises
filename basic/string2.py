@@ -1,4 +1,5 @@
 #!/usr/bin/python2.4 -tt
+import re
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -17,8 +18,14 @@
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
 def verbing(s):
-    # +++your code here+++
-    return
+    if len(s) >= 3:
+        if s[-3:] == "ing":
+            retorno = s + "ly"
+        else:
+            retorno = s + "ing"
+    else:
+        retorno = s
+    return retorno
 
 
 # E. not_bad
@@ -30,8 +37,8 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-    # +++your code here+++
-    return
+    retorno = re.sub("not.[a-zA-Z]\w+.bad", 'good', s)
+    return retorno
 
 
 # F. front_back
@@ -42,8 +49,25 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-    # +++your code here+++
-    return
+    
+    if len(a) % 2 == 0:
+        tamanho = len(a)/2
+        a1 = a[0:tamanho]
+        a2 = a[tamanho:]
+    else:
+        tamanho = len(a)/2
+        a1 = a[0:tamanho+1]
+        a2 = a[tamanho+1:]
+
+    if len(b) % 2 == 0:
+        tamanho = len(b)/2
+        b1 = b[0:tamanho]
+        b2 = b[tamanho:]
+    else:
+        tamanho = len(b)/2
+        b1 = b[0:tamanho+1]
+        b2 = b[tamanho+1:]
+    return a1+b1+a2+b2
 
 
 # Simple provided test() function used in main() to print
