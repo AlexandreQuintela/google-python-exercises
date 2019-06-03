@@ -66,5 +66,45 @@ def main():
         sys.exit(1)
 
 
+def print_words(filename):
+    dicionario = gerDic(filename)
+    print("Count")
+    gransoma = 0
+    for palavra, soma in sorted(dicionario.items()):
+        print("|> " + palavra.title() + " ----> " + str(soma))
+        gransoma += soma
+    print("|> Total de palavras no texto: " + str(gransoma))
+    sys.exit(0)
+
+
+def print_top(filename):
+    dicionario = gerDic(filename)
+    print("Top Count")
+    i = 0
+    gransoma = 0
+    for palavra, soma in sorted(dicionario.items(), key=lambda dicionario: dicionario[1], reverse=True):
+        if i < 20:
+            print("|> " + palavra.title() + " ----> " + str(soma))
+            gransoma += soma
+            i += 1
+    print("|> Total de palavras top 20: " + str(gransoma))
+    sys.exit(0)
+
+
+# Abre o arquivo e retorna um dicionario
+def gerDic(filename):
+    with open(filename) as arquivo:
+        texto = arquivo.read()
+    words = texto.lower().split()
+
+    dict_word = {}
+    for word in words:
+        if word in dict_word:
+            dict_word[word] += 1
+        else:
+            dict_word[word] = 1
+    return dict_word
+
+
 if __name__ == '__main__':
     main()
